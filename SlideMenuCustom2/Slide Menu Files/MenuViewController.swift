@@ -26,13 +26,22 @@ class MenuViewController: UIViewController {
 
     }
     
-    func actionBtnHomeTapped(_ sender: UIButton) {
-        let mainStoreboard: UIStoryboard  = UIStoryboard(name: "Main", bundle: nil)
-        let DVC = mainStoreboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-        self.navigationController?.pushViewController(DVC, animated: true)
+    func actionBtnHomeTapped(_ sender: UIButton) {        
         
-        BaseVC.btnShowMenu.tag = 10
-        BaseVC.onSlideMenuButtonPressed(BaseVC.btnShowMenu)
+        if isMainView {
+            BaseVC.btnShowMenu.tag = 10
+            BaseVC.onSlideMenuButtonPressed(BaseVC.btnShowMenu)
+            
+        } else {
+            let mainStoreboard: UIStoryboard  = UIStoryboard(name: "Main", bundle: nil)
+            let DVC = mainStoreboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            self.navigationController?.pushViewController(DVC, animated: true)
+            
+            BaseVC.btnShowMenu.tag = 10
+            BaseVC.onSlideMenuButtonPressed(BaseVC.btnShowMenu)
+            isMainView = true
+        }
+
     }
     
     func actionbtnCloseMenuOverlay(_ sender: UIButton) {
@@ -86,6 +95,7 @@ extension MenuViewController : UITableViewDelegate, UITableViewDataSource {
         
         BaseVC.btnShowMenu.tag = 10
         BaseVC.onSlideMenuButtonPressed(BaseVC.btnShowMenu)
+        isMainView = false
     }
     
 }

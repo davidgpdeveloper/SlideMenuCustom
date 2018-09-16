@@ -166,8 +166,8 @@ extension BaseViewController {
     }
     
     @objc func backToPreviousView() {
-//        self.navigationController?.popViewController(animated: true)
         self.navigationController?.popToRootViewController(animated: true)
+        isMainView = true
     }
     
     func defaultMenuImage() -> UIImage {

@@ -8,6 +8,8 @@
 
 import Foundation
 
+var isMainView = true
+
 // name section, storyboard Id, name image
 let nameSectionsSlideMenu = [
     ["Section One", "DetailViewController", "no_avatar_ico"],
