@@ -30,6 +30,9 @@ class MenuViewController: UIViewController {
         let mainStoreboard: UIStoryboard  = UIStoryboard(name: "Main", bundle: nil)
         let DVC = mainStoreboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         self.navigationController?.pushViewController(DVC, animated: true)
+        
+        BaseVC.btnShowMenu.tag = 10
+        BaseVC.onSlideMenuButtonPressed(BaseVC.btnShowMenu)
     }
     
     func actionbtnCloseMenuOverlay(_ sender: UIButton) {
@@ -81,10 +84,8 @@ extension MenuViewController : UITableViewDelegate, UITableViewDataSource {
         let DVC = mainStoreboard.instantiateViewController(withIdentifier: nameIdentifier)
         self.navigationController?.pushViewController(DVC, animated: true)
         
-        
         BaseVC.btnShowMenu.tag = 10
         BaseVC.onSlideMenuButtonPressed(BaseVC.btnShowMenu)
-        
     }
     
 }
