@@ -19,7 +19,7 @@ class MenuViewController: UIViewController {
     var swipeRight: UISwipeGestureRecognizer!
     var swipeLeft: UISwipeGestureRecognizer!
     
-    // LAOD
+    // LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
 

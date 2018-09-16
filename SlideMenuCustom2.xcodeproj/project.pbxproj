@@ -65,14 +65,11 @@
 			isa = PBXGroup;
 			children = (
 				9564FBF9214E6F1200A641AB /* Info.plist */,
-				9564FC04214E725800A641AB /* BaseViewController.swift */,
-				9564FC06214E72CF00A641AB /* MenuViewController.swift */,
-				9564FC02214E724000A641AB /* ViewController.swift */,
+				9564FC11214EE66A00A641AB /* Main View Files */,
 				9564FBF1214E6F1200A641AB /* Main.storyboard */,
+				9564FC12214EE69100A641AB /* Others Views Files */,
+				9564FC10214EE64600A641AB /* Slide Menu Files */,
 				9564FBFF214E6F4F00A641AB /* Supporting Files */,
-				9564FC08214EA77100A641AB /* DetailViewController.swift */,
-				9564FC0A214EA8BA00A641AB /* MenuTableViewCell.swift */,
-				9564FC0E214ED82300A641AB /* SlideMenuNameSections.swift */,
 			);
 			path = SlideMenuCustom2;
 			sourceTree = "<group>";
@@ -85,6 +82,33 @@
 				9564FBF6214E6F1200A641AB /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9564FC10214EE64600A641AB /* Slide Menu Files */ = {
+			isa = PBXGroup;
+			children = (
+				9564FC0E214ED82300A641AB /* SlideMenuNameSections.swift */,
+				9564FC0A214EA8BA00A641AB /* MenuTableViewCell.swift */,
+				9564FC06214E72CF00A641AB /* MenuViewController.swift */,
+				9564FC04214E725800A641AB /* BaseViewController.swift */,
+			);
+			path = "Slide Menu Files";
+			sourceTree = "<group>";
+		};
+		9564FC11214EE66A00A641AB /* Main View Files */ = {
+			isa = PBXGroup;
+			children = (
+				9564FC02214E724000A641AB /* ViewController.swift */,
+			);
+			path = "Main View Files";
+			sourceTree = "<group>";
+		};
+		9564FC12214EE69100A641AB /* Others Views Files */ = {
+			isa = PBXGroup;
+			children = (
+				9564FC08214EA77100A641AB /* DetailViewController.swift */,
+			);
+			path = "Others Views Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
