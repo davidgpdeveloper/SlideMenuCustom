@@ -16,6 +16,7 @@
 		9564FC07214E72CF00A641AB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564FC06214E72CF00A641AB /* MenuViewController.swift */; };
 		9564FC09214EA77100A641AB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564FC08214EA77100A641AB /* DetailViewController.swift */; };
 		9564FC0B214EA8BA00A641AB /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564FC0A214EA8BA00A641AB /* MenuTableViewCell.swift */; };
+		9564FC0F214ED82300A641AB /* SlideMenuNameSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9564FC0E214ED82300A641AB /* SlideMenuNameSections.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		9564FC06214E72CF00A641AB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		9564FC08214EA77100A641AB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		9564FC0A214EA8BA00A641AB /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		9564FC0E214ED82300A641AB /* SlideMenuNameSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuNameSections.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				9564FBFF214E6F4F00A641AB /* Supporting Files */,
 				9564FC08214EA77100A641AB /* DetailViewController.swift */,
 				9564FC0A214EA8BA00A641AB /* MenuTableViewCell.swift */,
+				9564FC0E214ED82300A641AB /* SlideMenuNameSections.swift */,
 			);
 			path = SlideMenuCustom2;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9564FC0F214ED82300A641AB /* SlideMenuNameSections.swift in Sources */,
 				9564FC03214E724000A641AB /* ViewController.swift in Sources */,
 				9564FBEE214E6F1200A641AB /* AppDelegate.swift in Sources */,
 				9564FC0B214EA8BA00A641AB /* MenuTableViewCell.swift in Sources */,
