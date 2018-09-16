@@ -18,82 +18,12 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         
     }
 
-    
-    func slideMenuItemSelectedAtIndex(_ index: Int32) {
-        let topViewController : UIViewController = self.navigationController!.topViewController!
-        print("View Controller is : \(topViewController) \n", terminator: "")
-        switch(index){
-        case 0:
-            print("Home\n", terminator: "")
 
-            self.openViewControllerBasedOnIdentifier("Home")
-            
-            break
-        case 1:
-            print("Play\n", terminator: "")
-            
-            self.openViewControllerBasedOnIdentifier("PlayVC")
-            
-            break
-        default:
-            print("default\n", terminator: "")
-        }
-    }
-    
-    func openViewControllerBasedOnIdentifier(_ strIdentifier:String){
-        let destViewController : UIViewController = self.storyboard!.instantiateViewController(withIdentifier: strIdentifier)
-        
-        let topViewController : UIViewController = self.navigationController!.topViewController!
-        
-        if (topViewController.restorationIdentifier! == destViewController.restorationIdentifier!){
-            print("Same VC")
-        } else {
-            self.navigationController!.pushViewController(destViewController, animated: true)
-        }
-    }
-    
-    func addSlideMenuButton(){
-        let btnShowMenu = UIButton(type: UIButtonType.system)
-        
-        if imageMenuName != "" {
-            if let image = UIImage(named: imageMenuName) {
-                btnShowMenu.setImage(image, for: UIControlState())
-            } else {
-                btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
-            }
-        } else {
-            btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
-        }
-        
-//        btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
-        btnShowMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        btnShowMenu.tintColor = imageMenuTintColor
-        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
-        let customBarItem = UIBarButtonItem(customView: btnShowMenu)
-        self.navigationItem.leftBarButtonItem = customBarItem;
-    }
+}
 
-    func defaultMenuImage() -> UIImage {
-        var defaultMenuImage = UIImage()
-        
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: 30, height: 22), false, 0.0)
-        
-        UIColor.black.setFill()
-        UIBezierPath(rect: CGRect(x: 0, y: 3, width: 30, height: 1)).fill()
-        UIBezierPath(rect: CGRect(x: 0, y: 10, width: 30, height: 1)).fill()
-        UIBezierPath(rect: CGRect(x: 0, y: 17, width: 30, height: 1)).fill()
-        
-        UIColor.white.setFill()
-        UIBezierPath(rect: CGRect(x: 0, y: 4, width: 30, height: 1)).fill()
-        UIBezierPath(rect: CGRect(x: 0, y: 11,  width: 30, height: 1)).fill()
-        UIBezierPath(rect: CGRect(x: 0, y: 18, width: 30, height: 1)).fill()
-        
-        defaultMenuImage = UIGraphicsGetImageFromCurrentImageContext()!
-        
-        UIGraphicsEndImageContext()
-       
-        return defaultMenuImage;
-    }
+extension BaseViewController {
+    
+    // ACTIONS OPEN-CLOSE SLIDE MENU METHODS //////////////////////////////////
     
     @objc func onSlideMenuButtonPressed(_ sender : UIButton){
         if (sender.tag == 10)
@@ -111,8 +41,8 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
                 viewMenuBack.frame = frameMenu
                 viewMenuBack.layoutIfNeeded()
                 viewMenuBack.backgroundColor = UIColor.clear
-                }, completion: { (finished) -> Void in
-                    viewMenuBack.removeFromSuperview()
+            }, completion: { (finished) -> Void in
+                viewMenuBack.removeFromSuperview()
             })
             
             return
@@ -134,6 +64,113 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             menuVC.view.frame=CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
             sender.isEnabled = true
-            }, completion:nil)
+        }, completion:nil)
+    }
+    
+}
+
+extension BaseViewController {
+    
+    // SWIPE GESTURES METHODS //////////////////////////////////
+    
+    func createRightSwipeGesture(viewTarget: UIViewController) {
+        let swipeRight = UISwipeGestureRecognizer(target: viewTarget, action: #selector(self.respondToGesture))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.right
+        viewTarget.view.addGestureRecognizer(swipeRight)
+    }
+    
+    @objc func respondToGesture(gesture: UISwipeGestureRecognizer) {
+        switch gesture.direction {
+        case UISwipeGestureRecognizerDirection.right:
+            let senderButton = UIButton()
+            senderButton.tag = 0
+            onSlideMenuButtonPressed(senderButton)
+            
+            //        case UISwipeGestureRecognizerDirection.left:
+            
+        default:
+            break
+        }
+    }
+    
+}
+
+extension BaseViewController {
+    
+    // OPEN VIEW WITH IDENTIFIER METHODS //////////////////////////////////
+    
+    func slideMenuItemSelectedAtIndex(_ index: Int32) {
+        let topViewController : UIViewController = self.navigationController!.topViewController!
+        print("View Controller is : \(topViewController) \n", terminator: "")
+        switch(index){
+        case 0:
+            print("Home\n", terminator: "")
+            self.openViewControllerBasedOnIdentifier("Home")
+            break
+        case 1:
+            print("Play\n", terminator: "")
+            self.openViewControllerBasedOnIdentifier("PlayVC")
+            break
+        default:
+            print("default\n", terminator: "")
+        }
+    }
+    
+    func openViewControllerBasedOnIdentifier(_ strIdentifier:String){
+        let destViewController : UIViewController = self.storyboard!.instantiateViewController(withIdentifier: strIdentifier)
+        let topViewController : UIViewController = self.navigationController!.topViewController!
+        if (topViewController.restorationIdentifier! == destViewController.restorationIdentifier!){
+            print("Same VC")
+        } else {
+            self.navigationController!.pushViewController(destViewController, animated: true)
+        }
+    }
+    
+}
+
+extension BaseViewController {
+    
+    // SLIDE MENU BUTTON METHODS //////////////////////////////////
+    
+    func addSlideMenuButton(){
+        let btnShowMenu = UIButton(type: UIButtonType.system)
+        
+        if imageMenuName != "" {
+            if let image = UIImage(named: imageMenuName) {
+                btnShowMenu.setImage(image, for: UIControlState())
+            } else {
+                btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
+            }
+        } else {
+            btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
+        }
+        
+        btnShowMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btnShowMenu.tintColor = imageMenuTintColor
+        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+        let customBarItem = UIBarButtonItem(customView: btnShowMenu)
+        self.navigationItem.leftBarButtonItem = customBarItem;
+    }
+    
+    func defaultMenuImage() -> UIImage {
+        var defaultMenuImage = UIImage()
+        
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 30, height: 22), false, 0.0)
+        
+        UIColor.black.setFill()
+        UIBezierPath(rect: CGRect(x: 0, y: 3, width: 30, height: 1)).fill()
+        UIBezierPath(rect: CGRect(x: 0, y: 10, width: 30, height: 1)).fill()
+        UIBezierPath(rect: CGRect(x: 0, y: 17, width: 30, height: 1)).fill()
+        
+        UIColor.white.setFill()
+        UIBezierPath(rect: CGRect(x: 0, y: 4, width: 30, height: 1)).fill()
+        UIBezierPath(rect: CGRect(x: 0, y: 11,  width: 30, height: 1)).fill()
+        UIBezierPath(rect: CGRect(x: 0, y: 18, width: 30, height: 1)).fill()
+        
+        defaultMenuImage = UIGraphicsGetImageFromCurrentImageContext()!
+        
+        UIGraphicsEndImageContext()
+        
+        return defaultMenuImage;
     }
 }

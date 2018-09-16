@@ -52,8 +52,7 @@ class MenuViewController: UIViewController {
             self.view.backgroundColor = UIColor.clear
         }, completion: { (finished) -> Void in
             self.view.removeFromSuperview()
-            self.removeFromParentViewController()
-            
+            self.removeFromParentViewController()            
         })
     }
 
