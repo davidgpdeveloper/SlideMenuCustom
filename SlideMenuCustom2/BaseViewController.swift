@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseViewController: UIViewController/*, SlideMenuDelegate*/ {
+class BaseViewController: UIViewController {
     
     let imageMenuName = "loading_cmrad_dark"
     let imageMenuTintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
@@ -41,7 +41,6 @@ extension BaseViewController {
             swipeRight.isEnabled = true
             swipeLeft.isEnabled = false
             
-//            self.slideMenuItemSelectedAtIndex(-1);
             
             sender.tag = 0;
             
@@ -66,7 +65,6 @@ extension BaseViewController {
         
         menuVC = self.storyboard!.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         menuVC.btnMenu = sender
-//        menuVC.delegate = self
         self.view.addSubview(menuVC.view)
         self.addChildViewController(menuVC)
         menuVC.view.layoutIfNeeded()
@@ -116,39 +114,6 @@ extension BaseViewController {
     }
     
 }
-
-//extension BaseViewController {
-//
-//    // OPEN VIEW WITH IDENTIFIER METHODS //////////////////////////////////
-//
-//    func slideMenuItemSelectedAtIndex(_ index: Int32) {
-//        let topViewController : UIViewController = self.navigationController!.topViewController!
-//        print("View Controller is : \(topViewController) \n", terminator: "")
-//        switch(index){
-//        case 0:
-//            print("Home\n", terminator: "")
-//            self.openViewControllerBasedOnIdentifier("Home")
-//            break
-//        case 1:
-//            print("Play\n", terminator: "")
-//            self.openViewControllerBasedOnIdentifier("PlayVC")
-//            break
-//        default:
-//            print("default\n", terminator: "")
-//        }
-//    }
-//
-//    func openViewControllerBasedOnIdentifier(_ strIdentifier:String){
-//        let destViewController : UIViewController = self.storyboard!.instantiateViewController(withIdentifier: strIdentifier)
-//        let topViewController : UIViewController = self.navigationController!.topViewController!
-//        if (topViewController.restorationIdentifier! == destViewController.restorationIdentifier!){
-//            print("Same VC")
-//        } else {
-//            self.navigationController!.pushViewController(destViewController, animated: true)
-//        }
-//    }
-//
-//}
 
 extension BaseViewController {
     

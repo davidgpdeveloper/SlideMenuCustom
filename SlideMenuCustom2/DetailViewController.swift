@@ -10,8 +10,6 @@ import UIKit
 
 class DetailViewController: BaseViewController {
 
-    // OBJECTS
-    
     
     // LOAD
     override func viewDidLoad() {

@@ -10,8 +10,8 @@ import Foundation
 
 // name section, storyboard Id, name image
 let nameSectionsSlideMenu = [
-    ["Section One", "DetailViewController", ""],
+    ["Section One", "DetailViewController", "no_avatar_ico"],
     ["Section Two", "DetailViewController", ""],
-    ["Section Three", "DetailViewController", ""]
+    ["Section Three", "DetailViewController", "loading_cmrad_dark"]
 ]
 

@@ -8,10 +8,6 @@
 
 import UIKit
 
-//protocol SlideMenuDelegate {
-//    func slideMenuItemSelectedAtIndex(_ index: Int32)
-//}
-
 class MenuViewController: UIViewController {
    
     @IBOutlet weak var viewContainerSlideMenu: UIView!
@@ -20,7 +16,6 @@ class MenuViewController: UIViewController {
     @IBAction func btnCloseMenuOverlayAction(_ sender: UIButton) {actionbtnCloseMenuOverlay(sender)}
     
     var btnMenu: UIButton!
-//    var delegate: SlideMenuDelegate?
     
     // LAOD
     override func viewDidLoad() {
@@ -38,13 +33,6 @@ class MenuViewController: UIViewController {
         
         btnMenu.tag = 0
         btnMenu.isHidden = false
-//        if (self.delegate != nil) {
-//            var index = Int32(sender.tag)
-//            if (sender == self.btnCloseMenuOverlay) {
-//                index = -1
-//            }
-//            delegate?.slideMenuItemSelectedAtIndex(index)
-//        }
         
         UIView.animate(withDuration: 0.3, animations: {
             self.view.frame = CGRect(x: -UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
@@ -69,6 +57,12 @@ extension MenuViewController : UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuTableViewCell") as! MenuTableViewCell
         
         cell.labelTitle.text = nameSectionsSlideMenu[indexPath.row][0]
+        
+        if nameSectionsSlideMenu[indexPath.row][2] != "" {
+            if let image = UIImage(named: nameSectionsSlideMenu[indexPath.row][2]) {
+                cell.imageSection.image = image
+            }
+        }
         
         return cell
     }
