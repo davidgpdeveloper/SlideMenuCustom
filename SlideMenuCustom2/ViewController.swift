@@ -9,14 +9,14 @@
 import UIKit
 
 class ViewController: BaseViewController {
-
+    
+    @IBAction func buttonPrintAction(_ sender: UIButton) { print("print!!!") }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
         createSwipesGestures(viewTarget: self)
     }
-
-
 
 }
 

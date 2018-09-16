@@ -14,7 +14,7 @@ protocol SlideMenuDelegate {
 
 class MenuViewController: UIViewController {
    
-    
+    @IBOutlet weak var viewContainerSlideMenu: UIView!
     @IBAction func btnHomeTappedAction(_ sender: UIButton) {actionBtnHomeTapped(sender)}
     @IBOutlet weak var btnCloseMenuOverlay: UIButton!
     @IBAction func btnCloseMenuOverlayAction(_ sender: UIButton) {actionbtnCloseMenuOverlay(sender)}
@@ -55,6 +55,7 @@ class MenuViewController: UIViewController {
             self.removeFromParentViewController()            
         })
     }
+    
 
 
 }

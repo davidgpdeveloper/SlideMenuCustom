@@ -22,7 +22,6 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         
     }
 
-
 }
 
 extension BaseViewController {
@@ -32,7 +31,10 @@ extension BaseViewController {
     @objc func onSlideMenuButtonPressed(_ sender : UIButton){
         if (sender.tag == 10)
         {
-            // To Hide Menu If it already there
+            // HIDE MENU
+            swipeRight.isEnabled = true
+            swipeLeft.isEnabled = false
+            
             self.slideMenuItemSelectedAtIndex(-1);
             
             sender.tag = 0;
@@ -52,6 +54,10 @@ extension BaseViewController {
             return
         }
         
+        // SHOW MENU
+        swipeRight.isEnabled = false
+        swipeLeft.isEnabled = true
+        
         sender.isEnabled = false
         sender.tag = 10
         
@@ -61,14 +67,26 @@ extension BaseViewController {
         self.view.addSubview(menuVC.view)
         self.addChildViewController(menuVC)
         menuVC.view.layoutIfNeeded()
+
+        let header = (self.navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.height
         
-        
-        menuVC.view.frame=CGRect(x: 0 - UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
+        // ANIMATION FOR CONTAINER WITH MENU
+        menuVC.viewContainerSlideMenu.frame=CGRect(x: 0 - UIScreen.main.bounds.size.width, y: header, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
         
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            menuVC.view.frame=CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
+            menuVC.viewContainerSlideMenu.frame=CGRect(x: 0, y: header, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
             sender.isEnabled = true
+            
         }, completion:nil)
+
+        
+        
+//        menuVC.view.frame=CGRect(x: 0 - UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
+//
+//        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+//            menuVC.view.frame=CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
+//            sender.isEnabled = true
+//        }, completion:nil)
     }
     
 }
@@ -95,17 +113,19 @@ extension BaseViewController {
             case UISwipeGestureRecognizerDirection.right:
                 
                 senderButton.tag = 0
+//                swipeRight.isEnabled = false
+//                swipeLeft.isEnabled = true
                 onSlideMenuButtonPressed(senderButton)
-                swipeRight.isEnabled = false
-                swipeLeft.isEnabled = true
-                
+
+            
             case UISwipeGestureRecognizerDirection.left:
                 
-                swipeRight.isEnabled = true
-                swipeLeft.isEnabled = false
+//                swipeRight.isEnabled = true
+//                swipeLeft.isEnabled = false
                 senderButton.tag = 10
+//                senderButton.isHidden = false
                 onSlideMenuButtonPressed(senderButton)
-                
+            
             default:
                 break
         }
