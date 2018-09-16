@@ -14,7 +14,7 @@ class DetailViewController: BaseViewController {
     // LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSlideMenuButton()
+        addSlideMenuButton(isBackButtonEnabled: true)
     }
 
 

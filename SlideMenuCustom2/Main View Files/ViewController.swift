@@ -14,7 +14,7 @@ class ViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSlideMenuButton()
+        addSlideMenuButton(isBackButtonEnabled: false)
         createSwipesGestures(viewTarget: self)
     }
 

@@ -122,7 +122,8 @@ extension BaseViewController {
     
     // SLIDE MENU BUTTON METHODS //////////////////////////////////
     
-    func addSlideMenuButton(){
+    func addSlideMenuButton(isBackButtonEnabled: Bool) {
+        
         btnShowMenu = UIButton(type: UIButtonType.system)
         
         if imageMenuIconName != "" {
@@ -139,7 +140,29 @@ extension BaseViewController {
         btnShowMenu.tintColor = imageMenuIconTintColor
         btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
         let customBarItem = UIBarButtonItem(customView: btnShowMenu)
-        self.navigationItem.leftBarButtonItem = customBarItem;
+        
+        if isBackButtonEnabled {
+            self.navigationItem.setLeftBarButtonItems([createBackBarMenuIcon(), customBarItem], animated: true)
+        } else {
+            self.navigationItem.leftBarButtonItem = customBarItem;
+        }
+        
+    }
+    
+    func createBackBarMenuIcon() -> UIBarButtonItem{
+        
+        let backImage = #imageLiteral(resourceName: "chevron_left_gray")
+        let backButton = UIButton(type: UIButtonType.custom)
+        backButton.frame = CGRect(x: 0, y: 0, width: 44, height: 44)
+        backButton.setImage(backImage, for: UIControlState())
+        backButton.addTarget(self, action: #selector(BaseViewController.backToPreviousView), for: .touchUpInside)
+        
+        let leftBackButtonItem: UIBarButtonItem = UIBarButtonItem(customView: backButton)
+        return leftBackButtonItem
+    }
+    
+    @objc func backToPreviousView() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func defaultMenuImage() -> UIImage {
@@ -163,4 +186,6 @@ extension BaseViewController {
         
         return defaultMenuImage;
     }
+    
+    
 }
