@@ -16,6 +16,8 @@ class MenuViewController: UIViewController {
     @IBAction func btnCloseMenuOverlayAction(_ sender: UIButton) {actionbtnCloseMenuOverlay(sender)}
     
     var btnMenu: UIButton!
+    var swipeRight: UISwipeGestureRecognizer!
+    var swipeLeft: UISwipeGestureRecognizer!
     
     // LAOD
     override func viewDidLoad() {
@@ -31,13 +33,18 @@ class MenuViewController: UIViewController {
     
     func actionbtnCloseMenuOverlay(_ sender: UIButton) {
         
+        let header = (self.navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.height
+        
         btnMenu.tag = 0
         btnMenu.isHidden = false
         
+        self.swipeRight.isEnabled = true
+        self.swipeLeft.isEnabled = false
+        
         UIView.animate(withDuration: 0.3, animations: {
-            self.view.frame = CGRect(x: -UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-            self.view.layoutIfNeeded()
-            self.view.backgroundColor = UIColor.clear
+            self.viewContainerSlideMenu.frame = CGRect(x: 0 - UIScreen.main.bounds.size.width, y: header, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
+            sender.isEnabled = true
+            self.btnCloseMenuOverlay.alpha = 0
         }, completion: { (finished) -> Void in
             self.view.removeFromSuperview()
             self.removeFromParentViewController()            

@@ -10,19 +10,20 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    let imageMenuName = "loading_cmrad_dark"
-    let imageMenuTintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+    let imageMenuIconName = "loading_cmrad_dark"
+    let imageMenuIconTintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
     
     var swipeRight = UISwipeGestureRecognizer()
     var swipeLeft = UISwipeGestureRecognizer()
-    let senderButton = UIButton()
     
     var menuVC = MenuViewController()
+    var btnShowMenu = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         menuVC = self.storyboard!.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        btnShowMenu = UIButton(type: UIButtonType.system)
     }
 
 }
@@ -33,6 +34,9 @@ extension BaseViewController {
     
     @objc func onSlideMenuButtonPressed(_ sender : UIButton) {
         
+        
+        print("sender: \(sender.tag)")
+        
         let header = (self.navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.height
         
         if (sender.tag == 10)
@@ -40,13 +44,12 @@ extension BaseViewController {
             // HIDE MENU
             swipeRight.isEnabled = true
             swipeLeft.isEnabled = false
-            
-            
             sender.tag = 0;
             
             let viewMenuBack : UIView = view.subviews.last!
             
             UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                
                 self.menuVC.viewContainerSlideMenu.frame = CGRect(x: 0 - UIScreen.main.bounds.size.width, y: header, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
                 sender.isEnabled = true
                 self.menuVC.btnCloseMenuOverlay.alpha = 0
@@ -63,8 +66,9 @@ extension BaseViewController {
         sender.isEnabled = false
         sender.tag = 10
         
-        menuVC = self.storyboard!.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         menuVC.btnMenu = sender
+        self.menuVC.swipeRight = self.swipeRight
+        self.menuVC.swipeLeft = self.swipeLeft
         self.view.addSubview(menuVC.view)
         self.addChildViewController(menuVC)
         menuVC.view.layoutIfNeeded()
@@ -78,7 +82,6 @@ extension BaseViewController {
             self.menuVC.btnCloseMenuOverlay.alpha = 0.4
             
         }, completion:nil)
-
     }
     
 }
@@ -103,11 +106,11 @@ extension BaseViewController {
         switch gesture.direction {
             
             case UISwipeGestureRecognizerDirection.right:
-                senderButton.tag = 0
-                onSlideMenuButtonPressed(senderButton)
+                btnShowMenu.tag = 0
+                onSlideMenuButtonPressed(btnShowMenu)
             case UISwipeGestureRecognizerDirection.left:
-                senderButton.tag = 10
-                onSlideMenuButtonPressed(senderButton)            
+                btnShowMenu.tag = 10
+                onSlideMenuButtonPressed(btnShowMenu)
             default:
                 break
         }
@@ -120,10 +123,10 @@ extension BaseViewController {
     // SLIDE MENU BUTTON METHODS //////////////////////////////////
     
     func addSlideMenuButton(){
-        let btnShowMenu = UIButton(type: UIButtonType.system)
+        btnShowMenu = UIButton(type: UIButtonType.system)
         
-        if imageMenuName != "" {
-            if let image = UIImage(named: imageMenuName) {
+        if imageMenuIconName != "" {
+            if let image = UIImage(named: imageMenuIconName) {
                 btnShowMenu.setImage(image, for: UIControlState())
             } else {
                 btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
@@ -133,7 +136,7 @@ extension BaseViewController {
         }
         
         btnShowMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        btnShowMenu.tintColor = imageMenuTintColor
+        btnShowMenu.tintColor = imageMenuIconTintColor
         btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
         let customBarItem = UIBarButtonItem(customView: btnShowMenu)
         self.navigationItem.leftBarButtonItem = customBarItem;
