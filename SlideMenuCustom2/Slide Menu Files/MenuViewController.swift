@@ -18,6 +18,7 @@ class MenuViewController: UIViewController {
     var btnMenu: UIButton!
     var swipeRight: UISwipeGestureRecognizer!
     var swipeLeft: UISwipeGestureRecognizer!
+    var BaseVC: BaseViewController!
     
     // LOAD
     override func viewDidLoad() {
@@ -77,8 +78,12 @@ extension MenuViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mainStoreboard: UIStoryboard  = UIStoryboard(name: "Main", bundle: nil)
         let nameIdentifier = nameSectionsSlideMenu[indexPath.row][1]
-        let DVC = mainStoreboard.instantiateViewController(withIdentifier: nameIdentifier) as! DetailViewController
+        let DVC = mainStoreboard.instantiateViewController(withIdentifier: nameIdentifier)
         self.navigationController?.pushViewController(DVC, animated: true)
+        
+        
+        BaseVC.btnShowMenu.tag = 10
+        BaseVC.onSlideMenuButtonPressed(BaseVC.btnShowMenu)
         
     }
     

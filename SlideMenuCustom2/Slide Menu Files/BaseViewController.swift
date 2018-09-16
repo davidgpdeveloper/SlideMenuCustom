@@ -66,9 +66,11 @@ extension BaseViewController {
         sender.isEnabled = false
         sender.tag = 10
         
-        menuVC.btnMenu = sender
+        self.menuVC.btnMenu = sender
         self.menuVC.swipeRight = self.swipeRight
         self.menuVC.swipeLeft = self.swipeLeft
+        self.menuVC.BaseVC = self
+        
         self.view.addSubview(menuVC.view)
         self.addChildViewController(menuVC)
         menuVC.view.layoutIfNeeded()
@@ -106,9 +108,11 @@ extension BaseViewController {
         switch gesture.direction {
             
             case UISwipeGestureRecognizerDirection.right:
+                // show
                 btnShowMenu.tag = 0
                 onSlideMenuButtonPressed(btnShowMenu)
             case UISwipeGestureRecognizerDirection.left:
+                // hide
                 btnShowMenu.tag = 10
                 onSlideMenuButtonPressed(btnShowMenu)
             default:
@@ -162,7 +166,8 @@ extension BaseViewController {
     }
     
     @objc func backToPreviousView() {
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func defaultMenuImage() -> UIImage {
