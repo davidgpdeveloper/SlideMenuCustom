@@ -17,9 +17,12 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     var swipeLeft = UISwipeGestureRecognizer()
     let senderButton = UIButton()
     
+    var menuVC = MenuViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        menuVC = self.storyboard!.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
     }
 
 }
@@ -28,7 +31,10 @@ extension BaseViewController {
     
     // ACTIONS OPEN-CLOSE SLIDE MENU METHODS //////////////////////////////////
     
-    @objc func onSlideMenuButtonPressed(_ sender : UIButton){
+    @objc func onSlideMenuButtonPressed(_ sender : UIButton) {
+        
+        let header = (self.navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.height
+        
         if (sender.tag == 10)
         {
             // HIDE MENU
@@ -42,11 +48,15 @@ extension BaseViewController {
             let viewMenuBack : UIView = view.subviews.last!
             
             UIView.animate(withDuration: 0.3, animations: { () -> Void in
-                var frameMenu : CGRect = viewMenuBack.frame
-                frameMenu.origin.x = -1 * UIScreen.main.bounds.size.width
-                viewMenuBack.frame = frameMenu
-                viewMenuBack.layoutIfNeeded()
-                viewMenuBack.backgroundColor = UIColor.clear
+//                var frameMenu : CGRect = viewMenuBack.frame
+//                frameMenu.origin.x = -1 * UIScreen.main.bounds.size.width
+//                viewMenuBack.frame = frameMenu
+//                viewMenuBack.layoutIfNeeded()
+//                viewMenuBack.backgroundColor = UIColor.clear
+                self.menuVC.viewContainerSlideMenu.frame = CGRect(x: 0 - UIScreen.main.bounds.size.width, y: header, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
+                sender.isEnabled = true
+                self.menuVC.btnCloseMenuOverlay.alpha = 0
+                
             }, completion: { (finished) -> Void in
                 viewMenuBack.removeFromSuperview()
             })
@@ -61,21 +71,24 @@ extension BaseViewController {
         sender.isEnabled = false
         sender.tag = 10
         
-        let menuVC : MenuViewController = self.storyboard!.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        menuVC = self.storyboard!.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         menuVC.btnMenu = sender
         menuVC.delegate = self
         self.view.addSubview(menuVC.view)
         self.addChildViewController(menuVC)
         menuVC.view.layoutIfNeeded()
 
-        let header = (self.navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.height
+        
         
         // ANIMATION FOR CONTAINER WITH MENU
         menuVC.viewContainerSlideMenu.frame=CGRect(x: 0 - UIScreen.main.bounds.size.width, y: header, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
+        menuVC.btnCloseMenuOverlay.alpha = 0
+        
         
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            menuVC.viewContainerSlideMenu.frame=CGRect(x: 0, y: header, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height);
+            self.menuVC.viewContainerSlideMenu.frame=CGRect(x: 0, y: header, width: UIScreen.main.bounds.size.width-80, height: UIScreen.main.bounds.size.height);
             sender.isEnabled = true
+            self.menuVC.btnCloseMenuOverlay.alpha = 0.4
             
         }, completion:nil)
 
