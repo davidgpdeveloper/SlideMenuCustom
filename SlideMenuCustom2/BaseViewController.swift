@@ -10,15 +10,14 @@ import UIKit
 
 class BaseViewController: UIViewController, SlideMenuDelegate {
     
+    let imageMenuName = "loading_cmrad_dark"
+    let imageMenuTintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     
     func slideMenuItemSelectedAtIndex(_ index: Int32) {
         let topViewController : UIViewController = self.navigationController!.topViewController!
@@ -55,8 +54,20 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     
     func addSlideMenuButton(){
         let btnShowMenu = UIButton(type: UIButtonType.system)
-        btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
+        
+        if imageMenuName != "" {
+            if let image = UIImage(named: imageMenuName) {
+                btnShowMenu.setImage(image, for: UIControlState())
+            } else {
+                btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
+            }
+        } else {
+            btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
+        }
+        
+//        btnShowMenu.setImage(self.defaultMenuImage(), for: UIControlState())
         btnShowMenu.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btnShowMenu.tintColor = imageMenuTintColor
         btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), for: UIControlEvents.touchUpInside)
         let customBarItem = UIBarButtonItem(customView: btnShowMenu)
         self.navigationItem.leftBarButtonItem = customBarItem;
