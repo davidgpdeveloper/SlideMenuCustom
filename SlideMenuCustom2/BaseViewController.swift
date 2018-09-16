@@ -13,6 +13,10 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     let imageMenuName = "loading_cmrad_dark"
     let imageMenuTintColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
     
+    var swipeRight = UISwipeGestureRecognizer()
+    var swipeLeft = UISwipeGestureRecognizer()
+    let senderButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,23 +77,37 @@ extension BaseViewController {
     
     // SWIPE GESTURES METHODS //////////////////////////////////
     
-    func createRightSwipeGesture(viewTarget: UIViewController) {
-        let swipeRight = UISwipeGestureRecognizer(target: viewTarget, action: #selector(self.respondToGesture))
+    func createSwipesGestures(viewTarget: UIViewController) {
+        swipeRight = UISwipeGestureRecognizer(target: viewTarget, action: #selector(self.respondToGesture))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
         viewTarget.view.addGestureRecognizer(swipeRight)
+        
+        swipeLeft = UISwipeGestureRecognizer(target: viewTarget, action: #selector(self.respondToGesture))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.left
+        viewTarget.view.addGestureRecognizer(swipeLeft)
+        
+        swipeLeft.isEnabled = false
     }
     
     @objc func respondToGesture(gesture: UISwipeGestureRecognizer) {
         switch gesture.direction {
-        case UISwipeGestureRecognizerDirection.right:
-            let senderButton = UIButton()
-            senderButton.tag = 0
-            onSlideMenuButtonPressed(senderButton)
             
-            //        case UISwipeGestureRecognizerDirection.left:
-            
-        default:
-            break
+            case UISwipeGestureRecognizerDirection.right:
+                
+                senderButton.tag = 0
+                onSlideMenuButtonPressed(senderButton)
+                swipeRight.isEnabled = false
+                swipeLeft.isEnabled = true
+                
+            case UISwipeGestureRecognizerDirection.left:
+                
+                swipeRight.isEnabled = true
+                swipeLeft.isEnabled = false
+                senderButton.tag = 10
+                onSlideMenuButtonPressed(senderButton)
+                
+            default:
+                break
         }
     }
     
